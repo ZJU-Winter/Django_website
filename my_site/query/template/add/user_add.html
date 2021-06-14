@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>添加病人</title>
+    <link rel="icon" type="image/x-icon" href="../../../static/assets/favicon.ico"/>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+
+<div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/query/">查询病人信息</a></li>
+                    <li><a href="/modify/">修改病人信息</a></li>
+                    <li class="active"><a href="#">添加病人信息</a></li>
+                    <!-- Single button -->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/person/">个人主页</a></li>
+                    <li><a href="/login/">退出登录</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+{% if success %}
+<div class="alert alert-success" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ success }}</div>
+{% endif %}
+{% if wrong %}
+<div class="alert alert-danger" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ wrong }}</div>
+{% endif %}
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3 form-box">
+
+        <form role="form" action="/add/" method="post" class="registration-form">
+            {% csrf_token %}
+            <fieldset>
+                <div class="form-top">
+                    <div class="form-top-left">
+                        <h4>Patient Numbers:</h4>
+                    </div>
+                    <div class="form-top-right">
+                        <i class="fa fa-user"></i>
+                    </div>
+                </div>
+                <div class="form-bottom">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="patient_id"
+                               placeholder="PatientID...">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control"
+                               placeholder="CheckDate..." name="check_date">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control"
+                               placeholder="CheckNumber..." name="check_number">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="form-top">
+                    <div class="form-top-left">
+                        <h4>Patient basic information</h4>
+                    </div>
+                    <div class="form-top-right">
+                        <i class="fa fa-key"></i>
+                    </div>
+                </div>
+                <div class="form-bottom">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="patientname"
+                               placeholder="Name..." name="patient_name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="patientgender"
+                               placeholder="Gender..." name="patient_gender">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="patientage"
+                               placeholder="Age..." name="patient_age">
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="form-top">
+                    <div class="form-top-left">
+                        <h4>Diagnosis:</h4>
+                    </div>
+                    <div class="form-top-right">
+                        <i class="fa fa-twitter"></i>
+                    </div>
+                </div>
+                <div class="form-bottom">
+                    <div class="form-group">
+                        <textarea type="text" class="form-control"
+                                  placeholder="ClinicalDiagnosis..." name="clinical"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <textarea type="text" class="form-control"
+                                  placeholder="EndoscopicDiagnosis..." name="endoscopic"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <textarea type="text" class="form-control"
+                                  placeholder="PathologicalDiagnosis..." name="pathological"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+            <button type="reset" class="btn btn-danger" style="text-align: center">Reset</button>
+            <button type="submit" class="btn btn-primary">Submit!</button>
+        </form>
+
+    </div>
+</div>
+
+
+</body>
+</html>

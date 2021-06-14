@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>个人主页</title>
+    <link rel="icon" type="image/x-icon" href="../../../static/assets/favicon.ico"/>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+
+<div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/query/">查询病人信息</a></li>
+                    <li><a href="/modify/">修改病人信息</a></li>
+                    <li><a href="/add/">添加病人信息</a></li>
+                    <!-- Single button -->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="active"><a href="#">个人主页</a></li>
+                    <li><a href="/login/">退出登录</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+{% if success %}
+<div class="alert alert-success" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ success }}</div>
+{% endif %}
+{% if wrong %}
+<div class="alert alert-danger" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ wrong }}</div>
+{% endif %}
+<div class="panel panel-default">
+    <table class="table">
+        <tr>
+            <td style="text-align:center;font-family: monospace;font-size: 18px">
+                Name
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 18px">
+                Hospital
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 18px">
+                Gender
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 18px">
+                Age
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align:center;font-family: monospace;font-size: 15px">
+                {{name}}
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 15px">
+                {{hospital}}
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 15px">
+                {{gender}}
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 15px">
+                {{age}}
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div style="text-align: center">
+    <form action="/person/" method="post" class="navbar-form navbar-center">
+        {% csrf_token %}
+        <div class="form-group">
+            <p>
+                <label>
+                    输入原来的密码：
+                </label>
+                <input type="password" name="old_password" class="form-control" placeholder="Password..." autofocus
+                       required>
+                <label>
+                    输入新的密码：
+                </label>
+                <input type="password" name="new_password" class="form-control" placeholder="Password..." autofocus
+                       required>
+                <label>
+                    再输入一遍新的密码：
+                </label>
+                <input type="password" name="certification" class="form-control" placeholder="Password..." autofocus
+                       required>
+                <button type="submit" class="btn btn-primary">确认修改</button>
+            </p>
+        </div>
+    </form>
+</div>
+
+
+</body>
+</html>

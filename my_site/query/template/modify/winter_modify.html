@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>病人信息修改</title>
+    <link rel="icon" type="image/x-icon" href="../../../static/assets/favicon.ico"/>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+          integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+    <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+
+<body>
+
+<div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="http://127.0.0.1:8000/winter/query/">查询病人信息</a></li>
+                    <li class="active"><a href="#">修改病人信息</a></li>
+                    <li><a href="http://127.0.0.1:8000/winter/add/">添加病人信息</a></li>
+                    <!-- Single button -->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/winter/person/">用户管理</a></li>
+                    <li><a href="/login/">退出登录</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+
+<div>
+    {% if success %}
+    <div class="alert alert-success" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ success }}</div>
+    {% endif %}
+    {% if wrong %}
+    <div class="alert alert-danger" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ wrong }}</div>
+    {% endif %}
+</div>
+
+<div>
+    <form action="http://127.0.0.1:8000/winter/modify/?page={{ posts.number }}" method="post"
+          class="navbar-form navbar-center">
+        {% csrf_token %}
+        <div class="form-group">
+            <p>
+                <label>
+                    输入要修改的病人ID：
+                </label>
+                <input type="text" name="id_patient" class="form-control" placeholder="ID" autofocus required>
+                <label>
+                    输入要修改的病人姓名：
+                </label>
+                <input type="text" name="new_name_patient" class="form-control" placeholder="Name" autofocus required>
+                <label>
+                    输入要修改的病人年龄：
+                </label>
+                <input type="text" name="new_age_patient" class="form-control" placeholder="Age" autofocus
+                       required>
+                <label>
+                    输入新的临床诊断结果：
+                </label>
+                <input type="text" name="new_clinical_patient" class="form-control" placeholder="Clinical Diagnosis"
+                       autofocus
+                       required>
+                <button type="submit" class="btn btn-primary">确认修改</button>
+            </p>
+        </div>
+    </form>
+</div>
+<div class="panel panel-default">
+    <table class="table">
+        <tr>
+            <td style="text-align:center;font-family: monospace;font-size: 18px">
+                Patient_ID
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 18px">
+                Patient_Name
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 18px">
+                Patient_Age
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 18px">
+                Clinical Diagnosis
+            </td>
+        </tr>
+        {% for patient in posts%}
+        <tr>
+            <td style="text-align:center;font-family: monospace;font-size: 15px">
+                {{patient.patientid}}
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 15px">
+                {{patient.patientname}}
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 15px">
+                {{patient.age}}
+            </td>
+            <td style="text-align:center;font-family: monospace;font-size: 15px">
+                {{patient.clinical}}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div>
+    {% if posts.has_previous %}
+    <a href="http://127.0.0.1:8000/winter/modify/?page={{ posts.previous_page_number }}">
+        <button style="position: relative;top: 5px;left: 640px" type="button" class="btn btn-default">上一页</button>
+    </a>
+    {% endif %}
+
+    {% if posts.has_next %}
+    <a href="http://127.0.0.1:8000/winter/modify/?page={{ posts.next_page_number }}">
+        <button style="margin-left: 10px;position:relative;top:5px;left: 740px" type="button" class="btn btn-default">
+            下一页
+        </button>
+    </a>
+    {% endif %}
+
+</div>
+
+
+</body>
+</html>
