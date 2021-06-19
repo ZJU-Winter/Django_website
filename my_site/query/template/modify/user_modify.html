@@ -53,6 +53,14 @@
     </nav>
 </div>
 <div>
+    {% if success %}
+    <div class="alert alert-success" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ success }}</div>
+    {% endif %}
+    {% if wrong %}
+    <div class="alert alert-danger" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ wrong }}</div>
+    {% endif %}
+</div>
+<div>
     <form action="/modify/" method="post" class="navbar-form navbar-center">
         {% csrf_token %}
         <div class="form-group">
@@ -82,12 +90,7 @@
         </div>
     </form>
 </div>
-{% if success %}
-<div class="alert alert-success" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ success }}</div>
-{% endif %}
-{% if wrong %}
-<div class="alert alert-danger" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ wrong }}</div>
-{% endif %}
+
 <div class="panel panel-default">
     <table class="table">
         <tr>

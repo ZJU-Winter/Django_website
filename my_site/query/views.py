@@ -288,7 +288,6 @@ def modify_password(request):
 # 修改所有人的密码 有很多报错信息
 def modify_all_password(request):  # for winter especially
     users = models.User.objects.all()
-    print(users[0].id)
     db = dbhelper()
     sql_str_hospital = 'select instituteid, institutename from hospital_record'
     hospitals = dict(db.query(sql_str_hospital))

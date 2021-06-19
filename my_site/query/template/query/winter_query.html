@@ -51,6 +51,9 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
+    {% if error %}
+    <div class="alert alert-danger" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ error }}</div>
+    {% endif %}
     <div style="text-align: center">
         <form action="http://127.0.0.1:8000/winter/query/" method="post" class="navbar-form navbar-center">
             {% csrf_token %}
@@ -140,9 +143,6 @@
 
 </div>
 
-{% if error %}
-<div class="alert alert-danger" style="font-size: 20px;text-align: center;word-spacing: 5px">{{ error }}</div>
-{% endif %}
 
 <div>
     {% if posts.has_previous %}
